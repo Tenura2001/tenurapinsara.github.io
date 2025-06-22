@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TinyML Project Portfolio">
+  <title>TinyML Project - Hello World</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <h1>TinyML Project: Hello World</h1>
+    <nav>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#code">Code</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="overview">
+    <h2>Project Overview</h2>
+    <p>This TinyML project demonstrates a simple machine learning model running on a microcontroller (e.g., ESP32 or Arduino Nano 33 BLE Sense). The model predicts <code>y = sin(x)</code> in real-time using TensorFlow Lite for Microcontrollers.</p>
+  </section>
+
+  <section id="demo">
+    <h2>Demo</h2>
+    <p>Watch a short demonstration of the working TinyML model:</p>
+    <video controls width="100%">
+      <source src="demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <section id="code">
+    <h2>Source Code</h2>
+    <p>You can find the complete code and model files on <a href="https://github.com/yourusername/tinyml-hello-world" target="_blank">GitHub</a>.</p>
+    <pre><code>// Example C++ inference code
+float x = 1.57;
+float y = model.predict(x);
+Serial.println(y);
+</code></pre>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Created by <strong>Tenura Pinsara</strong> | <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Tenura Pinsara. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Optional: Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
+
+<!-- style.css -->
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    line-height: 1.6;
+    background: #f9f9f9;
+    color: #333;
+    padding: 0 20px;
+  }
+
+  header {
+    background: #0d47a1;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  nav ul li {
+    display: inline;
+    margin: 0 10px;
+  }
+
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  section {
+    margin: 40px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #777;
+  }
+</style>
