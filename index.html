@@ -778,6 +778,21 @@
             background: #059669;
         }
 
+        .description {
+          text-align: center;
+          margin-top: 1rem;
+          font-size: 1.2rem;
+          padding: 1rem 1.5rem;
+          background-color: rgba(0, 0, 0, 0.5); /* You can change this color */
+          color: #fff;
+          border-radius: 10px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+          transition: background-color 0.5s ease;
+        }
+
+
         /* Footer */
         footer {
             background: #1f2937;
@@ -1089,48 +1104,52 @@
     </section>
 
     <section id="workshops" class="slideshow-section">
-        <div class="container">
-          <h2 style="text-align: center;">SPECIAL OCCASIONS</h2>
+  <div class="container">
+    <h2 style="text-align: center;">SPECIAL OCCASIONS</h2>
 
-            <div class="slideshow-container">
-                <div class="slideshow">
-                    <div class="slide">
-                        <div class="slide-image">
-                            <img src="img/S1.jpg" alt="IoT Workshop">
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-image">
-                            <img src="img/S2.jpg" alt="Robotics Workshop">
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-image">
-                            <img src="img/S3.jpg" alt="IoT Workshop">
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-image">
-                            <img src="img/S4.jpg" alt="Robotics Workshop">
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-image">
-                            <img src="img/S5.jpeg" alt="Robotics Workshop">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="slideshow-dots">
-                    <span class="dot" onclick="currentSlide(0)"></span>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
-                    <span class="dot" onclick="currentSlide(4)"></span>
-                </div>
-            </div>
+    <div class="slideshow-container">
+      <div class="slideshow">
+        <div class="slide">
+          <div class="slide-image">
+            <img src="img/S1.jpg" alt="School IoT Session">
+          </div>
         </div>
-    </section>
+        <div class="slide">
+          <div class="slide-image">
+            <img src="img/S2.jpg" alt="University Robotics Workshop">
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide-image">
+            <img src="img/S3.jpg" alt="AI and Sensor Demo">
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide-image">
+            <img src="img/S4.jpg" alt="ESP32 Lab Session">
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide-image">
+            <img src="img/S5.jpeg" alt="Engineering Showcase">
+          </div>
+        </div>
+      </div>
+
+      <div id="image-description" class="description">
+        School IoT Session
+      </div>
+
+      <div class="slideshow-dots">
+        <span class="dot" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+      </div>
+    </div>
+  </div>
+</section>
 
     <footer>
         <div class="container">
@@ -1140,39 +1159,45 @@
     </footer>
 
 <script>
-    let currentSlideIndex = 0;
-    let direction = 1; // 1 for forward, -1 for backward
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const totalSlides = slides.length;
+  let currentSlideIndex = 0;
+  let direction = 1;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const totalSlides = slides.length;
 
-    function showSlide(index) {
-        document.querySelector('.slideshow').style.transform = `translateX(-${index * 100}%)`;
+  const descriptions = [
+    "With RoboticGen CEO-Deepana",
+    "Robotics Workshop at Price of Wails Collage",
+    "IoT Workshop at Moratu Maha Vidyalaya",
+    "With RoboticGen Kids",
+    "IT day MMV INFINTRIX'25"
+  ];
 
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
+  const descriptionBox = document.getElementById("image-description");
 
-        currentSlideIndex = index;
+  function showSlide(index) {
+    document.querySelector('.slideshow').style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    currentSlideIndex = index;
+    descriptionBox.textContent = descriptions[index]; // ✨ Change description
+  }
+
+  function updateSlide() {
+    if (currentSlideIndex === totalSlides - 1) {
+      direction = -1;
+    } else if (currentSlideIndex === 0) {
+      direction = 1;
     }
+    showSlide(currentSlideIndex + direction);
+  }
 
-    function updateSlide() {
-        if (currentSlideIndex === totalSlides - 1) {
-            direction = -1; // reverse to backward
-        } else if (currentSlideIndex === 0) {
-            direction = 1; // reverse to forward
-        }
+  setInterval(() => {
+    updateSlide();
+  }, 5000);
 
-        showSlide(currentSlideIndex + direction);
-    }
-
-    // Auto slideshow back and forth
-    setInterval(() => {
-        updateSlide();
-    }, 5000);
-
-    // Initial display
-    showSlide(currentSlideIndex);
+  showSlide(currentSlideIndex);
 </script>
 
 
