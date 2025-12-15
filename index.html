@@ -326,6 +326,29 @@
             box-shadow: 0 20px 60px var(--shadow-hover);
         }
 
+        /* Research Publications Specific Styles */
+        .publication-card {
+            border-left: 4px solid var(--accent-primary);
+        }
+
+        .pub-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pub-links {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
         /* Grid Layouts */
         .grid {
             display: grid;
@@ -901,7 +924,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav class="container">
             <a href="#" class="logo">Tenura Pinsara</a>
@@ -911,6 +933,7 @@
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#publications">Research</a></li>
                 <li><a href="#blog">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -936,7 +959,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section id="home" class="hero section">
         <div class="container">
             <div class="profile-image">
@@ -948,7 +970,7 @@
                 AI undergraduate student with a strong passion for FPGA development, embedded machine learning, and innovative IoT solutions. Dedicated to transforming ideas into impactful real-world applications using cutting-edge technology.
             </p>
             <div class="cta-buttons">
-                <a href="Tenura_Pinsara_Resum (1).pdf" 
+                <a href="Resum.pdf" 
                    target="_blank" class="btn btn-primary">
                     <i class="fas fa-file-text"></i>
                     View Resume
@@ -961,7 +983,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="about section">
         <div class="container">
             <h2 class="section-title">About Me</h2>
@@ -1014,7 +1035,6 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills" class="section">
         <div class="container">
             <h2 class="section-title">My Skills</h2>
@@ -1113,7 +1133,6 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
     <section id="experience" class="experience section">
         <div class="container">
             <h2 class="section-title">Work Experience</h2>
@@ -1133,7 +1152,6 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
@@ -1256,7 +1274,64 @@
         </div>
     </section>
 
-    <!-- Blog Section -->
+    <section id="publications" class="section">
+        <div class="container">
+            <h2 class="section-title">Research Publications</h2>
+            <div class="title-underline"></div>
+            <p class="section-subtitle">
+                Exploring the frontiers of AI/ML and TinyML through academic research.
+            </p>
+
+            <div class="grid grid-2">
+                <div class="card publication-card">
+                    <div class="pub-meta">
+                        <i class="fas fa-book-reader"></i> 0th International Conference
+on Information Technology Research (ICITR 2025)
+                    </div>
+                    <h3>AirSense : AI-Powered Air Mouse Using TinyML</h3>
+                    <p>AirSense is a dual-mode smart controller that transforms an ESP32 + MPU6050 into an intelligent Bluetooth Air Mouse and Gesture-Based Media Controller.
+
+Unlike traditional air mice, AirSense uses TinyML (Edge AI) to process sensor data locally on the chip. It runs a custom Neural Network to recognize complex hand gestures—like raising your hand to increase volume—without needing cloud connectivity or Python scripts running on your PC.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">TinyML</span>
+                        <span class="tech-tag">Embedded AI </span>
+                        <span class="tech-tag">Deep Learning</span>
+                    </div>
+                    <div class="pub-links">
+                        <a href="https://drive.google.com/file/d/1gorroix7PnozFNkm3vT6E4M4WcZbcFLn/view?usp=sharing" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">
+                            <i class="fas fa-file-pdf"></i> Read Paper
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card publication-card">
+                    <div class="pub-meta">
+                        <i class="fas fa-flask"></i> th SLAAI International Conference on
+Artificial Intelligence (SLAAI-ICAI) 2025
+                    </div>
+                    <h3>smartCommit: an AI-Powered Commit Message Solution</h3>
+                    <p>
+                        smartCommit is an AI-powered commit message generator that leverages advanced machine learning 
+                        techniques to create meaningful and context-aware commit messages for software development projects. 
+                        By analyzing code changes, smartCommit generates concise and informative messages that enhance 
+                        collaboration and version control practices.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">GenAI</span>
+                        <span class="tech-tag">Explainable AI</span>
+                        <span class="tech-tag">GitHub</span>
+                    </div>
+                    <div class="pub-links">
+                        <a href="#" class="btn btn-outline" style="padding: 8px 20px; font-size: 0.9rem;">
+                            <i class="fas fa-external-link-alt"></i> Abstract
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="blog" class="blog section">
         <div class="container">
             <h2 class="section-title">Latest Articles</h2>
@@ -1335,7 +1410,6 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
     <section id="gallery" class="section">
         <div class="container">
             <h2 class="section-title">Special Occasions</h2>
@@ -1417,7 +1491,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
@@ -1487,7 +1560,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <h3>Tenura Pinsara</h3>
@@ -1658,5 +1730,3 @@
     </script>
 </body>
 </html>
-
-
