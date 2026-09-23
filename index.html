@@ -1160,7 +1160,7 @@
                 Here are some of my recent projects that showcase my skills in embedded systems, IoT, and machine learning.
             </p>
             
-            <div class="grid grid-3">
+            <div class="grid grid-3" id="projects-grid">
                 <div class="card project-card">
                     <div class="project-image">
                         <img src="img/IoT_kit.jpeg" alt="IoT Learning Kit">
@@ -1614,6 +1614,51 @@ Artificial Intelligence (SLAAI-ICAI) 2025
             }
         }
 
+        // Load editable content (photos + projects) from content.json.
+        // This file is what admin.html updates, so the live site always
+        // reflects the latest edits made from the admin panel. If it can't
+        // be loaded for any reason, the hardcoded content above stays as-is.
+        async function loadDynamicContent() {
+            try {
+                const res = await fetch('content.json?t=' + Date.now());
+                if (!res.ok) return;
+                const data = await res.json();
+
+                if (data.profileImage) {
+                    const el = document.querySelector('.profile-image img');
+                    if (el) el.src = data.profileImage;
+                }
+                if (data.aboutImage) {
+                    const el = document.querySelector('.about-image img');
+                    if (el) el.src = data.aboutImage;
+                }
+                if (Array.isArray(data.projects) && data.projects.length) {
+                    const grid = document.getElementById('projects-grid');
+                    if (grid) {
+                        grid.innerHTML = data.projects.map(p => `
+                            <div class="card project-card">
+                                <div class="project-image">
+                                    <img src="${p.image}" alt="${p.title}">
+                                </div>
+                                <h3>${p.title}</h3>
+                                <p>${p.description || ''}</p>
+                                <div class="project-tech">
+                                    ${(p.tech || []).map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                                </div>
+                                <a href="${p.link || '#'}" target="_blank" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                    View Code
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        `).join('');
+                    }
+                }
+            } catch (e) {
+                console.log('Using default content (content.json not loaded):', e);
+            }
+        }
+
         // Slideshow functionality
         let slideIndex = 1;
 
@@ -1713,9 +1758,10 @@ Artificial Intelligence (SLAAI-ICAI) 2025
         }
 
         // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             loadTheme();
             smoothScroll();
+            await loadDynamicContent();
             fadeInOnScroll();
             
             // Start auto slideshow
@@ -1730,4 +1776,3 @@ Artificial Intelligence (SLAAI-ICAI) 2025
     </script>
 </body>
 </html>
-
