@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Admin — Tenura Pinsara</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text2: #64748b;
+    --accent: #10b981;
+    --accent2: #059669;
+    --border: #e2e8f0;
+    --danger: #dc2626;
+    --danger-bg: #fef2f2;
+    --ok-bg: #f0fdf4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-bottom: 100px;
+  }
+  header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  header i { color: var(--accent); font-size: 1.4rem; }
+  header h1 { font-size: 1.2rem; margin: 0; }
+  header span { color: var(--text2); font-size: 0.9rem; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 1.5rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .card h2 {
+    font-size: 1.05rem;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card h2 i { color: var(--accent); }
+  label.field-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text2);
+    margin: 0.75rem 0 0.3rem;
+  }
+  input[type=text], input[type=password], textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+  .row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .row > div { flex: 1; min-width: 140px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+  .btn-primary:disabled { opacity: 0.6; cursor: default; }
+  .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+  .btn-danger { background: var(--danger-bg); color: var(--danger); }
+  .btn-sm { padding: 6px 12px; font-size: 0.85rem; }
+  .status {
+    margin-top: 0.9rem;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #f1f5f9;
+    color: var(--text2);
+    display: none;
+  }
+  .status.show { display: block; }
+  .status-error { background: var(--danger-bg); color: var(--danger); }
+  .status-success { background: var(--ok-bg); color: var(--accent2); }
+  #editor { display: none; }
+  .photo-row { display: flex; align-items: center; gap: 1.25rem; }
+  .photo-preview {
+    width: 90px; height: 90px; border-radius: 50%;
+    object-fit: cover; border: 2px solid var(--border); background: #eee;
+    flex-shrink: 0;
+  }
+  .file-label {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 8px 14px; border: 1.5px dashed var(--border); border-radius: 8px;
+    font-size: 0.88rem; cursor: pointer; color: var(--text2);
+  }
+  .file-label:hover { border-color: var(--accent); color: var(--accent2); }
+  .project-edit-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #fafbfc;
+  }
+  .project-edit-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+  .project-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; background: #e5e7eb; flex-shrink: 0; }
+  .project-edit-card input, .project-edit-card textarea { margin-bottom: 0.5rem; }
+  .btn-remove {
+    background: none; border: none; color: var(--danger);
+    font-size: 0.85rem; cursor: pointer; white-space: nowrap;
+  }
+  .sticky-save {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--card); border-top: 1px solid var(--border);
+    padding: 1rem 1.5rem; display: flex; justify-content: center; gap: 1rem;
+    z-index: 10;
+  }
+  .hint { font-size: 0.82rem; color: var(--text2); margin-top: 0.5rem; line-height: 1.5; }
+  .hint a { color: var(--accent2); }
+</style>
+</head>
+<body>
+
+<header>
+  <i class="fas fa-lock"></i>
+  <div>
+    <h1>Site Admin</h1>
+    <span>Edit photos &amp; projects — changes commit straight to your GitHub repo</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2><i class="fab fa-github"></i> Connect to your repo</h2>
+    <div class="row">
+      <div>
+        <label class="field-label">GitHub username</label>
+        <input type="text" id="owner" placeholder="Tenura2001">
+      </div>
+      <div>
+        <label class="field-label">Repository name</label>
+        <input type="text" id="repo" placeholder="e.g. portfolio">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label class="field-label">Branch</label>
+        <input type="text" id="branch" placeholder="main">
+      </div>
+    </div>
+    <label class="field-label">Personal access token</label>
+    <input type="password" id="token" placeholder="ghp_...">
+    <p class="hint">
+      Create one at <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a> →
+      "Generate new token (classic)" → tick the <strong>repo</strong> scope (or, for a fine-grained token, give it
+      Contents read/write on this repo). The token is saved only in this browser's local storage — it is never
+      uploaded anywhere except directly to GitHub's API, and never gets committed to your site.
+    </p>
+    <div style="margin-top:1rem; display:flex; gap:0.75rem; align-items:center;">
+      <button class="btn btn-primary" id="load-btn" onclick="loadContent()">
+        <i class="fas fa-cloud-download-alt"></i> Load current content
+      </button>
+      <button class="btn btn-outline btn-sm" onclick="clearToken()">Clear saved token</button>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <div id="editor">
+
+    <div class="card">
+      <h2><i class="fas fa-user-circle"></i> Profile photo</h2>
+      <div class="photo-row">
+        <img class="photo-preview" id="profile-preview" alt="Profile">
+        <label class="file-label">
+          <i class="fas fa-upload"></i> Choose new photo
+          <input type="file" id="profile-file" accept="image/*" style="display:none">
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-image"></i> About-section photo</h2>
+      <div class="photo-row">
+        <img class="photo-preview" id="about-preview" alt="About" style="border-radius:12px;">
+        <label class="file-label">
+          <i class="fas fa-upload"></i> Choose new photo
+          <input type="file" id="about-file" accept="image/*" style="display:none">
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-diagram-project"></i> Featured projects</h2>
+      <div id="projects-list"></div>
+      <button class="btn btn-outline" onclick="addProject()">
+        <i class="fas fa-plus"></i> Add project
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="sticky-save" id="save-bar" style="display:none;">
+  <button class="btn btn-primary" id="save-btn" onclick="saveAll()">
+    <i class="fas fa-cloud-upload-alt"></i> Save all changes to GitHub
+  </button>
+</div>
+
+<script>
+let owner = '', repo = '', branch = 'main', token = '';
+let contentSha = null;
+let contentData = null;
+let pendingProfileFile = null;
+let pendingAboutFile = null;
+let projectFiles = [];
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('owner').value = localStorage.getItem('gh_admin_owner') || 'Tenura2001';
+  document.getElementById('repo').value = localStorage.getItem('gh_admin_repo') || '';
+  document.getElementById('branch').value = localStorage.getItem('gh_admin_branch') || 'main';
+  document.getElementById('token').value = localStorage.getItem('gh_admin_token') || '';
+
+  document.getElementById('profile-file').addEventListener('change', e => {
+    if (e.target.files[0]) { pendingProfileFile = e.target.files[0]; renderEditor(); }
+  });
+  document.getElementById('about-file').addEventListener('change', e => {
+    if (e.target.files[0]) { pendingAboutFile = e.target.files[0]; renderEditor(); }
+  });
+});
+
+function clearToken() {
+  localStorage.removeItem('gh_admin_token');
+  document.getElementById('token').value = '';
+  setStatus('Saved token cleared from this browser.');
+}
+
+function setStatus(msg, isError, isSuccess) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status show' + (isError ? ' status-error' : isSuccess ? ' status-success' : '');
+}
+
+function ghApiUrl(path) {
+  return `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path).replace(/%2F/g,'/')}`;
+}
+function ghHeaders() {
+  return { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github+json' };
+}
+function imgUrl(path) {
+  if (!path) return '';
+  return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
+}
+function escapeAttr(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+}
+function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+async function loadContent() {
+  owner = document.getElementById('owner').value.trim();
+  repo = document.getElementById('repo').value.trim();
+  branch = document.getElementById('branch').value.trim() || 'main';
+  token = document.getElementById('token').value.trim();
+
+  if (!owner || !repo || !token) {
+    setStatus('Please fill in username, repo name, and token.', true);
+    return;
+  }
+  localStorage.setItem('gh_admin_owner', owner);
+  localStorage.setItem('gh_admin_repo', repo);
+  localStorage.setItem('gh_admin_branch', branch);
+  localStorage.setItem('gh_admin_token', token);
+
+  setStatus('Loading current content from GitHub…');
+  try {
+    const res = await fetch(`${ghApiUrl('content.json')}?ref=${branch}`, { headers: ghHeaders() });
+    if (res.status === 404) {
+      contentData = { profileImage: '', aboutImage: '', projects: [] };
+      contentSha = null;
+      setStatus('No content.json in this repo yet — starting fresh. It will be created when you save.');
+    } else if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `GitHub error ${res.status}`);
+    } else {
+      const json = await res.json();
+      contentSha = json.sha;
+      contentData = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\n/g, '')))));
+      setStatus('Loaded current content. Make your changes below, then save.', false, true);
+    }
+    projectFiles = contentData.projects.map(() => null);
+    document.getElementById('editor').style.display = 'block';
+    document.getElementById('save-bar').style.display = 'flex';
+    renderEditor();
+  } catch (e) {
+    setStatus('Failed to load: ' + e.message, true);
+  }
+}
+
+function renderEditor() {
+  document.getElementById('profile-preview').src = pendingProfileFile
+    ? URL.createObjectURL(pendingProfileFile) : imgUrl(contentData.profileImage);
+  document.getElementById('about-preview').src = pendingAboutFile
+    ? URL.createObjectURL(pendingAboutFile) : imgUrl(contentData.aboutImage);
+
+  const list = document.getElementById('projects-list');
+  list.innerHTML = '';
+  contentData.projects.forEach((p, i) => {
+    if (p._deleted) return;
+    const div = document.createElement('div');
+    div.className = 'project-edit-card';
+    const thumbSrc = projectFiles[i] ? URL.createObjectURL(projectFiles[i]) : imgUrl(p.image);
+    div.innerHTML = `
+      <div class="project-edit-header">
+        <img class="project-thumb" src="${thumbSrc}">
+        <input type="text" placeholder="Project title" value="${escapeAttr(p.title || '')}" data-field="title" data-idx="${i}" style="flex:1;">
+        <button class="btn-remove" data-idx="${i}"><i class="fas fa-trash"></i> Remove</button>
+      </div>
+      <textarea placeholder="Description" data-field="description" data-idx="${i}">${p.description || ''}</textarea>
+      <input type="text" placeholder="Tech tags, comma separated" value="${escapeAttr((p.tech || []).join(', '))}" data-field="tech" data-idx="${i}">
+      <input type="text" placeholder="GitHub link" value="${escapeAttr(p.link || '')}" data-field="link" data-idx="${i}">
+      <label class="file-label">
+        <i class="fas fa-image"></i> Change photo
+        <input type="file" accept="image/*" data-file-idx="${i}" style="display:none">
+      </label>
+    `;
+    list.appendChild(div);
+  });
+
+  list.querySelectorAll('input[data-field], textarea[data-field]').forEach(el => {
+    el.addEventListener('input', () => {
+      const idx = +el.dataset.idx;
+      const field = el.dataset.field;
+      if (field === 'tech') {
+        contentData.projects[idx].tech = el.value.split(',').map(s => s.trim()).filter(Boolean);
+      } else {
+        contentData.projects[idx][field] = el.value;
+      }
+    });
+  });
+  list.querySelectorAll('.btn-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      contentData.projects[+btn.dataset.idx]._deleted = true;
+      renderEditor();
+    });
+  });
+  list.querySelectorAll('input[data-file-idx]').forEach(inp => {
+    inp.addEventListener('change', e => {
+      const idx = +inp.dataset.fileIdx;
+      if (e.target.files[0]) { projectFiles[idx] = e.target.files[0]; renderEditor(); }
+    });
+  });
+}
+
+function addProject() {
+  contentData.projects.push({ title: '', description: '', tech: [], link: '', image: '' });
+  projectFiles.push(null);
+  renderEditor();
+}
+
+async function uploadFile(file) {
+  const dataUrl = await fileToDataURL(file);
+  const base64 = dataUrl.split(',')[1];
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const path = `img/${Date.now()}_${safeName}`;
+  const res = await fetch(ghApiUrl(path), {
+    method: 'PUT',
+    headers: ghHeaders(),
+    body: JSON.stringify({ message: `Add image ${safeName} via admin panel`, content: base64, branch })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `Photo upload failed (${res.status})`);
+  }
+  return path;
+}
+
+async function saveAll() {
+  if (!contentData) return;
+  const saveBtn = document.getElementById('save-btn');
+  saveBtn.disabled = true;
+  setStatus('Saving… uploading any new photos first, this can take a moment.');
+  try {
+    if (pendingProfileFile) {
+      contentData.profileImage = await uploadFile(pendingProfileFile);
+      pendingProfileFile = null;
+    }
+    if (pendingAboutFile) {
+      contentData.aboutImage = await uploadFile(pendingAboutFile);
+      pendingAboutFile = null;
+    }
+    for (let i = 0; i < contentData.projects.length; i++) {
+      if (projectFiles[i]) {
+        contentData.projects[i].image = await uploadFile(projectFiles[i]);
+        projectFiles[i] = null;
+      }
+    }
+    contentData.projects = contentData.projects.filter(p => !p._deleted);
+
+    const body = {
+      message: 'Update site content via admin panel',
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(contentData, null, 2)))),
+      branch
+    };
+    if (contentSha) body.sha = contentSha;
+
+    const res = await fetch(ghApiUrl('content.json'), {
+      method: 'PUT',
+      headers: ghHeaders(),
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `Save failed (${res.status})`);
+    }
+    const result = await res.json();
+    contentSha = result.content.sha;
+    setStatus('Saved! Your live site will show the changes within a minute or two.', false, true);
+    renderEditor();
+  } catch (e) {
+    setStatus('Save failed: ' + e.message, true);
+  } finally {
+    saveBtn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
