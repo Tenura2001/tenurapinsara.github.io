@@ -1,0 +1,41 @@
+{
+  "profileImage": "img/part2.jpeg",
+  "aboutImage": "img/part1.jpeg",
+  "projects": [
+    {
+      "title": "IoT Learning Kit",
+      "image": "img/IoT_kit.jpeg",
+      "description": "Developed an educational IoT kit using ESP32, featuring real-time sensor data collection and cloud integration for teaching IoT concepts.",
+      "tech": ["ESP32", "IoT", "Cloud Integration", "Educational"],
+      "link": "https://github.com/Tenura2001/IoT-Learning-KIT-.git"
+    },
+    {
+      "title": "Fast Line Following with PID",
+      "image": "img/line_robot.jpeg",
+      "description": "A high-speed line-following robot powered by an ESP32, featuring 500 RPM gear motors, adaptive line detection, and Bluetooth-based PID tuning.",
+      "tech": ["ESP32", "PID Control", "Robotics", "Bluetooth"],
+      "link": "https://github.com/Tenura2001/PID-line-following-robot.git"
+    },
+    {
+      "title": "Hello World to TinyML",
+      "image": "img/tml.png",
+      "description": "A classic Hello World example for embedded machine learning, involving training a neural network and deploying it on a microcontroller using TFLM.",
+      "tech": ["TinyML", "TensorFlow Lite", "Python", "Embedded"],
+      "link": "https://github.com/Tenura2001/Hello-World-of-TinyML.git"
+    },
+    {
+      "title": "Smart Medibox",
+      "image": "img/mbox.jpeg",
+      "description": "Created a smart medication dispenser with IoT capabilities, featuring automated reminders and remote monitoring using ESP32.",
+      "tech": ["ESP32", "IoT", "Healthcare", "Automation"],
+      "link": "https://github.com/Tenura2001/SmartMediBox.git"
+    },
+    {
+      "title": "Virtual Drawing with AI",
+      "image": "img/vdb.png",
+      "description": "This system allows users to draw with hand gestures and receive AI-generated answers based on the drawing using computer vision.",
+      "tech": ["Computer Vision", "AI", "Hand Tracking", "Python"],
+      "link": "https://github.com/Tenura2001/Virtual-Drawing-Board-computer-Vison---01-.git"
+    }
+  ]
+}
